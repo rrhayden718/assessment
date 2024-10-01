@@ -2,6 +2,7 @@ import boto3
 import pytest
 import unittest
 import sys
+import argparse
 from moto import mock_aws
 from unittest.mock import patch
 
@@ -50,9 +51,20 @@ def list_ecs_task(family):
             print("An exception occurred")
 
 if __name__ == '__main__':
-    unittest.main()
-    family = sys.argv[1]
-    bucket_name = sys.argv[2]
+    # unittest.main()
+    parser = argparse.ArgumentParser(
+        description="Script that adds 3 numbers from CMD"
+    )
+    parser.add_argument("--bucket_name", required=True, type=str)
+    parser.add_argument("--family", required=True, type=str)
+    args = parser.parse_args()
+
+    bucket_name = args.bucket_name
+    family = args.family
+
+    print(list_ecs_task(family))
+    print(list_s3_files(bucket_name))
+
 
 
 

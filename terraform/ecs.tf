@@ -23,12 +23,14 @@ resource "aws_ecs_task_definition" "task_definition" {
                                             }
                                           ]
         "healthCheck"                   : {
-                                            "command"     : ["CMD-SHELL", "curl -f http://127.0.0.1:8080/ || exit 1"],
-                                            "interval"    : 60,
-                                            "timeout"     : 30,
+                                            "command"     : [ "CMD-SHELL", "curl -f http://localhost:8080/ || exit 1" ],
+                                            "interval"    : 30,
+                                            "timeout"     : 5,
                                             "startPeriod" : 10,
                                             "retries"     :3
-                                          }
+                                          }                                          
+        
+
     }
     ] 
     )

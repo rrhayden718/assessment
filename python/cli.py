@@ -4,7 +4,7 @@ import unittest
 from moto import mock_s3
 from unittest.mock import patch
 
-def list_s3_files(bucket_name, prefix=None):
+def list_s3_files(bucket_name):
     """Lists files in an S3 bucket."""
     try:
 
@@ -29,7 +29,7 @@ def list_s3_files(bucket_name, prefix=None):
         print("An exception occurred")
 
 
-def list_ecs_task_definition_revisions(family):
+def list_ecs_task(family):
     """List the revisions of a given ECS task definition family."""
     try:
         ecs_client = boto3.client('ecs')

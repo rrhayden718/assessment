@@ -11,7 +11,16 @@ To use this project, Ensure you have the following:
 Steps to use:
   1. Clone the repo to your desired location
   2. Edit the terraform.tfvars file with your desired values
-  3. Run init script (init.sh or init.ps1), 
+  3. Run init script (init.sh or init.ps1)  
   4. Run "terraform plan" and "terraform apply"
   4. To access the application, navigate to the Load Balancer in the
      AWS console and paste the dns name of the Load Balancer in a new tab. 
+
+
+
+
+Python
+
+Steps to use:
+1. python cli.py list_files rh-ecs-test-bucket
+2. python cli.py list_ecs_task nginx

@@ -8,29 +8,17 @@ from unittest.mock import patch
 
 def list_s3_files(bucket_name):
     """Lists files in an S3 bucket."""
+
+    s3 = boto3.client('s3')
     try:
+        response = s3.list_objects_v2(Bucket=bucket_name)
+        objects = [obj['Key'] for obj in response.get('Contents', [])]
+        return objects
+    except Exception as e:
+        print(f"Error listing objects: {e}")
+        return []
 
-        s3 = boto3.client('s3')
-        paginator = s3.get_paginator('list_objects_v2')
-
-        kwargs = {'Bucket': bucket_name}
-        if prefix:
-            kwargs['Prefix'] = prefix
-
-        page_iterator = paginator.paginate(**kwargs)
-
-        files = []
-        for page in page_iterator:
-            if 'Contents' in page:
-                for obj in page['Contents']:
-                    files.append(obj['Key'])
-
-        return files
-
-    except:
-        print("An exception occurred")
-
-
+   
 def list_ecs_task(family):
     """List the revisions of a given ECS task definition family."""
     try:
@@ -48,15 +36,15 @@ def list_ecs_task(family):
         return revisions
     
     except:
-            print("An exception occurred")
+            print("An exception occurred -ecs")
 
 if __name__ == '__main__':
     # unittest.main()
     parser = argparse.ArgumentParser(
-        description="Script that adds 3 numbers from CMD"
+        description="Script that list ecs and s3 files"
     )
-    parser.add_argument("--bucket_name", required=True, type=str)
-    parser.add_argument("--family", required=True, type=str)
+    parser.add_argument("--bucket_name", required=False, type=str)
+    parser.add_argument("--family", required=False, type=str)
     args = parser.parse_args()
 
     bucket_name = args.bucket_name

@@ -2,7 +2,7 @@ import boto3
 import pytest
 import unittest
 import sys
-from moto import mock_s3
+from moto import mock_aws
 from unittest.mock import patch
 
 def list_s3_files(bucket_name):
@@ -50,7 +50,7 @@ def list_ecs_task(family):
             print("An exception occurred")
 
 if __name__ == '__main__':
-    unittest2.main()
+    unittest.main()
     family = sys.argv[1]
     bucket_name = sys.argv[2]
 
@@ -82,7 +82,7 @@ class TestListEcsTaskDefinitionRevisions(unittest.TestCase):
 
 
 
-@mock_s3
+@mock_aws
 def test_list_s3_files():
     """Tests the list_s3_files function."""
 

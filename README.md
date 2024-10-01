@@ -22,5 +22,6 @@ Steps to use:
 Python
 
 Steps to use:
-1. python cli.py list_files rh-ecs-test-bucket
-2. python cli.py list_ecs_task nginx
+1. run pip3 install -r requirement.txt 
+2. python3 cli.py list_files rh-ecs-test-bucket
+3. python3 cli.py list_ecs_task nginx

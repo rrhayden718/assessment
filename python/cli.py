@@ -1,6 +1,7 @@
 import boto3
 import pytest
 import unittest
+import sys
 from moto import mock_s3
 from unittest.mock import patch
 
@@ -49,7 +50,7 @@ def list_ecs_task(family):
             print("An exception occurred")
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest2.main()
 
 
 

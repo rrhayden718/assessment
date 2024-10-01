@@ -6,23 +6,52 @@ from unittest.mock import patch
 
 def list_s3_files(bucket_name, prefix=None):
     """Lists files in an S3 bucket."""
+    try:
 
-    s3 = boto3.client('s3')
-    paginator = s3.get_paginator('list_objects_v2')
+        s3 = boto3.client('s3')
+        paginator = s3.get_paginator('list_objects_v2')
 
-    kwargs = {'Bucket': bucket_name}
-    if prefix:
-        kwargs['Prefix'] = prefix
+        kwargs = {'Bucket': bucket_name}
+        if prefix:
+            kwargs['Prefix'] = prefix
 
-    page_iterator = paginator.paginate(**kwargs)
+        page_iterator = paginator.paginate(**kwargs)
 
-    files = []
-    for page in page_iterator:
-        if 'Contents' in page:
-            for obj in page['Contents']:
-                files.append(obj['Key'])
+        files = []
+        for page in page_iterator:
+            if 'Contents' in page:
+                for obj in page['Contents']:
+                    files.append(obj['Key'])
 
-    return files
+        return files
+
+    except:
+        print("An exception occurred")
+
+
+def list_ecs_task_definition_revisions(family):
+    """List the revisions of a given ECS task definition family."""
+    try:
+        ecs_client = boto3.client('ecs')
+
+        response = ecs_client.list_task_definitions(
+            familyPrefix=family
+        )
+
+        revisions = []
+        for arn in response['taskDefinitionArns']:
+            revision = int(arn.split(':')[-1])
+            revisions.append(revision)
+
+        return revisions
+    
+    except:
+            print("An exception occurred")
+
+if __name__ == '__main__':
+    unittest.main()
+
+
 
 
 
@@ -49,23 +78,6 @@ class TestListEcsTaskDefinitionRevisions(unittest.TestCase):
         # Assert that the function returns the expected revisions
         self.assertEqual(revisions, [1, 2, 3])
 
-def list_ecs_task_definition_revisions(family):
-    """List the revisions of a given ECS task definition family."""
-    ecs_client = boto3.client('ecs')
-
-    response = ecs_client.list_task_definitions(
-        familyPrefix=family
-    )
-
-    revisions = []
-    for arn in response['taskDefinitionArns']:
-        revision = int(arn.split(':')[-1])
-        revisions.append(revision)
-
-    return revisions
-
-if __name__ == '__main__':
-    unittest.main()
 
 
 @mock_s3

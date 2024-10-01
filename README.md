@@ -23,5 +23,4 @@ Python
 
 Steps to use:
 1. run pip3 install -r requirement.txt 
-2. python3 cli.py list_files rh-ecs-test-bucket
-3. python3 cli.py list_ecs_task nginx
+2. python3 cli.py --bucket_name rh-ecs-test-bucket --family nginx-td

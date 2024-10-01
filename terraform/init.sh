@@ -1,6 +1,7 @@
 #!/bin/bash
 
-bucket="rh-terraform-state-dev";
+#bucket="rh-terraform-state-dev";
+read -p "Please enter a bucket name to store statefile: " bucket
 result=$(aws s3api list-buckets --query "Buckets[?Name=='$bucket'].Name" --output text)
 
 if [ "$bucket" == "$result" ]; 

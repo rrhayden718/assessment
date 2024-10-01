@@ -51,7 +51,8 @@ def list_ecs_task(family):
 
 if __name__ == '__main__':
     unittest2.main()
-
+    family = sys.argv[1]
+    bucket_name = sys.argv[2]
 
 
 
